@@ -55,13 +55,19 @@ divs.forEach(function eachDiv(div) {
     var localA=document.createElement('a')
     localA.className='local'
     localA.innerText='#'
-    thisa.innerText=thisa.innerText.replace(r2,'')
-    var newTitle=thisa.innerText.replace(r,'_')
-    localA.href='dhqWX/'+em.innerText+'/'+newTitle+'.png'
-    div.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
-    div.insertBefore(localA,thisa.nextSibling)//插入png网址
-    var localA2=localA.cloneNode(true)
-    localA2.href='dhqWX/'+em.innerText+'/'+newTitle+'.html'
-    div.insertBefore(localA2,thisa.nextSibling)//插入html网址
+    if (thisa.querySelectorAll('img').length>0) {//纯图片推送
+      localA.href='dhqWX/'+em.innerText+'/'+'wx.jpeg'
+      div.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
+      div.insertBefore(localA,thisa.nextSibling)//插入jpeg网址
+    } else {
+      thisa.innerText=thisa.innerText.replace(r2,'')
+      var newTitle=thisa.innerText.replace(r,'_')
+      localA.href='dhqWX/'+em.innerText+'/'+newTitle+'.png'
+      div.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
+      div.insertBefore(localA,thisa.nextSibling)//插入png网址
+      var localA2=localA.cloneNode(true)
+      localA2.href='dhqWX/'+em.innerText+'/'+newTitle+'.html'
+      div.insertBefore(localA2,thisa.nextSibling)//插入html网址
+    }
   })
 })
