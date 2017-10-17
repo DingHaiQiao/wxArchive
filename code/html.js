@@ -45,8 +45,6 @@ divs.forEach(function eachDiv(div) {
 // 生成最终目录
 r=/[!\\/*?|:"<>]/g
 br=document.createElement('br')
-var css=document.querySelector('style')
-css.sheet.removeRule(1)
 
 divs=document.querySelectorAll('div')
 divs.forEach(function eachDiv(div) {
@@ -54,11 +52,14 @@ divs.forEach(function eachDiv(div) {
   var em=div.querySelector('em')
   a.forEach(function eachA(thisa) {
     var localA=document.createElement('a')
-    localA.style['padding-left']='5px'
+    localA.className='local'
     localA.innerText='#'
     var newTitle=thisa.innerText.replace(r,'_')
-    localA.href='../dhqWX/'+em.innerText+'/'+newTitle+'.html'
+    localA.href='dhqWX/'+em.innerText+'/'+newTitle+'.png'
     div.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
-    div.insertBefore(localA,thisa.nextSibling)//插入网址
+    div.insertBefore(localA,thisa.nextSibling)//插入png网址
+    var localA2=localA.cloneNode(true)
+    localA2.href='dhqWX/'+em.innerText+'/'+newTitle+'.html'
+    div.insertBefore(localA2,thisa.nextSibling)//插入html网址
   })
 })
