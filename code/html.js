@@ -44,6 +44,7 @@ divs.forEach(function eachDiv(div) {
 
 // 生成最终目录
 r=/[!\\/*?|:"<>]/g
+var r2=/\s*$/
 br=document.createElement('br')
 
 divs=document.querySelectorAll('div')
@@ -54,6 +55,7 @@ divs.forEach(function eachDiv(div) {
     var localA=document.createElement('a')
     localA.className='local'
     localA.innerText='#'
+    thisa.innerText=thisa.innerText.replace(r2,'')
     var newTitle=thisa.innerText.replace(r,'_')
     localA.href='dhqWX/'+em.innerText+'/'+newTitle+'.png'
     div.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
