@@ -4,13 +4,26 @@ var result=new Array()
 
 
 function getData() {
-  let list=document.querySelectorAll(".mpui-mass-list__content>.mpui-list__item")
+  let list=document.querySelectorAll(".weui-desktop-mass__item")
   list.forEach(function(e){
-    result.push(e.querySelector(".mpui-mass-list__media__time").outerHTML)
-    let titleList=e.querySelectorAll(".mpui-mass-list__media__content > a")
-    titleList.forEach(function functionName(f) {
-      result.push(f.outerHTML)
-    })
+    let myDiv=document.createElement("div")
+    myDiv.insertAdjacentHTML('beforeend',e.querySelector(".weui-desktop-mass__time").outerHTML) //date
+    let img=e.querySelector('.weui-desktop-mass__content > .weui-desktop-mass-img >a')
+    if(img){//纯图片推送
+        myDiv.insertAdjacentHTML('beforeend',img.outerHTML) 
+    }else{
+        let titleList=e.querySelectorAll("div.weui-desktop-mass-appmsg__bd > a")
+        titleList.forEach(function (f) {
+            if(f.children[0]){
+                f.children[0].remove()  //remove “原创”
+            }
+            if(f.parentNode.parentNode.classList.contains('weui-desktop-mass-media_del')){
+                myDiv.insertAdjacentHTML('beforeend','已删除') 
+            }
+            myDiv.insertAdjacentHTML('beforeend',f.outerHTML) //title
+        })
+    }
+    result.push(myDiv.outerHTML)
   })
 }
 
@@ -29,16 +42,17 @@ function unique(arr) {
 function nextPage()
 {
     getData()
-    var btn= document.querySelector("#list_container > div.mpui-pagination > span.mpui-pagination__nav > .mpui-pagination__num__wrp ~ a")
-    if(btn){
-        btn.click()
-        setTimeout(nextPage,300)
-    }else{
+    let btn= document.querySelector(".weui-desktop-pagination__nav > .weui-desktop-pagination__num__wrp ~ a")
+    let endNumber='3' //设置结束页
+    if(document.querySelector(".weui-desktop-pagination__nav .weui-desktop-pagination__num").textContent==endNumber){
         result=unique(result)
         result.forEach(function functionName(e) {
            document.write(e)
         })
+    }else{
         console.log(result.length)
+        btn.click()
+        setTimeout(nextPage,700)
     }
 }
 
