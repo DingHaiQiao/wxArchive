@@ -1,5 +1,6 @@
 //分批运行
 
+////只留下日期，用来生成日期文件夹
 //标题暂时隐藏
 var a=document.querySelectorAll('a')
 a.forEach(function hideA(e) {
@@ -64,7 +65,7 @@ divs.forEach(function eachDiv(div) {
       var newTitle=thisa.innerText.replace(r,'_')
       localA.href='dhqWX/'+em.innerText+'/'+newTitle+'.png'
       div.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
-      div.insertBefore(localA,thisa.nextSibling)//插入png网址
+      div.insertBefore(localA,thisa.nextSibling)//插入截图png网址
       var localA2=localA.cloneNode(true)
       localA2.href='dhqWX/'+em.innerText+'/'+newTitle+'.html'
       div.insertBefore(localA2,thisa.nextSibling)//插入html网址
