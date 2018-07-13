@@ -43,9 +43,10 @@ divs.forEach(function eachDiv(div) {
 
 
 
-// 生成最终目录
+// 添加备份文件链接，生成最终目录
 r=/[!\\/*?|:"<>]/g
 var r2=/^\s*|\s*$/g
+var r3=/&chksm.*rd/
 br=document.createElement('br')
 
 divs=document.querySelectorAll('div')
@@ -53,6 +54,7 @@ divs.forEach(function eachDiv(div) {
   var a=div.querySelectorAll('a')
   var em=div.querySelector('em')
   a.forEach(function eachA(thisa) {
+    thisa.href=thisa.href.replace(r3,'')
     var localA=document.createElement('a')
     localA.className='local'
     localA.innerText='#'
