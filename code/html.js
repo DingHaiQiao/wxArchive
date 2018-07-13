@@ -45,7 +45,7 @@ divs.forEach(function eachDiv(div) {
 
 // 生成最终目录
 r=/[!\\/*?|:"<>]/g
-var r2=/\s*$/
+var r2=/^\s*|\s*$/g
 br=document.createElement('br')
 
 divs=document.querySelectorAll('div')
