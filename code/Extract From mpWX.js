@@ -7,6 +7,10 @@ function getData() {
   let list=document.querySelectorAll(".weui-desktop-mass__item")
   list.forEach(function(e){
     let myDiv=document.createElement("div")
+    let r=/^\d\d月/
+    if(r.test(e.querySelector(".weui-desktop-mass__time").innerText)){
+        e.querySelector(".weui-desktop-mass__time").innerText="2018年"+e.querySelector(".weui-desktop-mass__time").innerText//补齐年份
+    }
     myDiv.insertAdjacentHTML('beforeend',e.querySelector(".weui-desktop-mass__time").outerHTML) //date
     let img=e.querySelector('.weui-desktop-mass__content > .weui-desktop-mass-img >a')
     if(img){//纯图片推送
