@@ -22,10 +22,10 @@ while (my $line = <$data>) {
 			 system qq(wget -O wx.jpeg \"$fields[2]\");
 			 system qq(mv wx.jpeg dhqWX/$fields[0]);
 		 }else{
-			 system qq(./phantomjs.exe phantomwx.js \"$fields[2]\" >wx.html);
-	     rename "wx.png","$fields[1].png";
-	     rename "wx.html", "$fields[1].html";
-	     system qq(mv \"$fields[1]\"* dhqWX/$fields[0]);
+			system qq(./phantomjs.exe phantomwx.js \"$fields[2]\" >wx.html);
+			rename "wx.png","$fields[1].png";
+			rename "wx.html", "$fields[1].html";
+			system qq(mv \"$fields[1]\"* dhqWX/$fields[0]);
 		 }
   } else {
      warn "Line could not be parsed: $line\n";

@@ -18,35 +18,40 @@ a.forEach(e=>{
 var sep=document.createElement('span')
 sep.innerText='|'
 var br=document.createElement('br')
-var r=/[!\\/*?|:"<>]/g
+var r=/[#!\\/*?|:"<>]/g
 
 var divs=document.querySelectorAll('body > div')
 divs.forEach(function eachDiv(div) {
     var a=div.querySelectorAll('a')
     var em=div.querySelector('em')
     em.style.display='initial'
-    if (a.length>1) {//一天多篇文章，每个标题前加上日期
-        for (var i = 1; i < a.length; i++) {
-            var date=em.cloneNode(true)
-            div.insertBefore(date,a[i])
+    if(a.length>0){
+        if (a.length>1) {//一天多篇文章，每个标题前加上日期
+            for (var i = 1; i < a.length; i++) {
+                var date=em.cloneNode(true)
+                div.insertBefore(date,a[i])
+            }
         }
+        a.forEach(function eachA(thisa) {
+            div.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
+            var url=document.createElement('span')
+            url.innerText=thisa.href
+            div.insertBefore(url,thisa.nextSibling)//插入网址
+            div.insertBefore(sep.cloneNode(true),thisa.nextSibling)//插入竖线
+            div.insertBefore(sep.cloneNode(true),thisa)//插入竖线
+            thisa.innerText=thisa.firstElementChild.innerText.replace(r,'_')//删除标题中不合法字符
+            //检查是否出现多余的空格
+            thisa.style.display='initial'
+        })
+    }else{
+        div.remove()//排除纯文本消息
     }
-    a.forEach(function eachA(thisa) {
-        var url=document.createElement('span')
-        url.innerText=thisa.href
-        div.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
-        div.insertBefore(url,thisa.nextSibling)//插入网址
-        div.insertBefore(sep.cloneNode(true),thisa.nextSibling)//插入竖线
-        div.insertBefore(sep.cloneNode(true),thisa)//插入竖线
-        thisa.innerText=thisa.innerText.replace(r,'_')//删除标题中不合法字符
-        thisa.style.display='initial'
-    })
 })
 
 
-
+//刷新titlelist后运行
 // 添加备份文件链接，生成最终目录
-r=/[!\\/*?|:"<>]/g
+r=/[#!\\/*?|:"<>]/g
 var r2=/^\s*|\s*$/g
 var r3=/&chksm.*rd/
 br=document.createElement('br')
@@ -54,7 +59,7 @@ br=document.createElement('br')
 divs=document.querySelectorAll('body > div')
 divs.forEach(function eachDiv(div) {
     let em=div.querySelector('em')
-
+    //添加wrapper
     let content=div.querySelectorAll('em ~ *')
     let wrapper=document.createElement('div')
     wrapper.className='content'
@@ -75,8 +80,8 @@ divs.forEach(function eachDiv(div) {
             wrapper.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
             wrapper.insertBefore(localA,thisa.nextSibling)//插入jpeg网址
         } else {
-            thisa.innerText=thisa.innerText.replace(r2,'')
-            let newTitle=thisa.innerText.replace(r,'_')
+            thisa.innerText=thisa.firstElementChild.innerText.replace(r2,'')
+            let newTitle=encodeURIComponent(thisa.innerText.replace(r,'_'))
             localA.href='dhqWX/'+em.innerText+'/'+newTitle+'.png'
             wrapper.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
             wrapper.insertBefore(localA,thisa.nextSibling)//插入截图png网址
