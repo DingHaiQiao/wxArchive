@@ -15,20 +15,44 @@ page.zoomFactor = 1.5
 
 page.open(address, function() {
     var medialist = page.evaluate(function() {
-        var imgs = document.querySelectorAll('img') //恢复被延迟加载的图片
+
         var content = { imglist: '', voicelist: '' } //存储多媒体地址
 
+        var imgs = document.querySelectorAll('img') //恢复被延迟加载的图片
         for (var i = 0; i < imgs.length; i++) {
-            var src = imgs[i].dataset.src
-            if (/^http/.test(src)) {
-                content.imglist += src + '\n'
+            var src
+            if(imgs[i].dataset.src){
+                src = imgs[i].dataset.src
+                imgs[i].setAttribute('src', src)
+            }else if(imgs[i].src){
+                src=imgs[i].src
             }
-            imgs[i].setAttribute('src', src)
+            //清空不需要的attribute
+            for (var index = 0; index < imgs[i].attributes.length; index++) {
+                var attr=imgs[i].attributes[index]
+                if (attr.name !='style' && attr.name !='src' && attr.name !='data-src') {
+                    imgs[i].setAttribute(attr.name,'')
+                }
+            }
+            imgs[i].removeAttribute('crossorigin')
+
+            if (/^http/.test(src)) {
+                content.imglist += src + '\n' //保存图像网址
+            }
         }
+        
+        var links=document.querySelectorAll('link')
+        for (var index = 0; index < links.length; index++) {
+            if (/^\/\//.test(links[index].getAttribute('href'))) {
+                links[index].setAttribute('href','https:'+links[index].getAttribute('href'))
+            } 
+        }
+
         var scripts = document.querySelectorAll('script') //remove <script>
         for (var i = 0; i < scripts.length; i++) {
             scripts[i].remove()
         }
+
         var videos = document.querySelectorAll('.video_iframe') //恢复被延迟加载的视频
         for (var i = 0; i < videos.length; i++) {
             videos[i].src = videos[i].dataset.src.replace('file', 'http')
@@ -64,8 +88,8 @@ page.open(address, function() {
     fs.write('imglist', medialist.imglist, 'w+') //保存图片链接
     fs.write('voicelist', medialist.voicelist, 'w+') //保存音频链接
     window.setTimeout(function functionName() {
-        page.render('wx.png')//输出截图
-        console.log(page.content)//输出html
+        page.render('wx.png')
+        console.log(page.content)
         phantom.exit()
-    }, 1000) ////延迟1秒，尽量保证图片已加载
+    }, 2000) ////延迟2秒，尽量保证图片已加载
 })
