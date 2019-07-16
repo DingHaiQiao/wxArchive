@@ -3,7 +3,9 @@
 2. 打开titlelist.html，运行[html.js](html.js)第一段，生成日期列表datelist，运行[createfolder.sh](createfolder.sh)生成日期目录
 3. 运行[html.js](html.js)第二段，结果保存为[titlelist.csv](titlelist.csv)，换行必须是LF
 4. 运行[html.js](html.js)第三段，将结果插入[dingWX.html](../dingWX.html)
-5. 清空[imglist](imglist)、[voicelist](voicelist)
+5. `rm imglist voicelist`
 6. 运行[1main.pl](1main.pl)
-7. 打开[dingWX.html](../dingWX.html)，看是否能顺利访问备份文件，重点关注标题里有特殊字符的推送
-
+7. 打开[dingWX.html](../dingWX.html)，检查是否能顺利访问备份文件，重点关注标题里有特殊字符的推送
+8. `cd [media](media/ )` 运行[getimg.sh](getimg.sh)下载图片
+9. 运行[getvoice.sh](getvoice.sh)下载音频
+10. 将备份文件复制到[dhqWX](../dhqWX/ )
