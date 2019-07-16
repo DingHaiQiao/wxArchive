@@ -1,7 +1,8 @@
 {
   "version": 2,
   "builds": [
-    { "src": "dhqWX/**", "use": "@now/static" }
+    { "src": "dhqWX/**", "use": "@now/static" },
+    { "src": "dingWX.html", "use": "@now/static" }
   ],
   "routes": [
     { "src": "/", "dest": "/dingWX.html" }
