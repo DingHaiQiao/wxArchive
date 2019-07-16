@@ -1,4 +1,4 @@
-[https://dinghaiqiao.github.io](https://dinghaiqiao.github.io )
+[https://dinghaiqiao.github.io/wxArchive](https://dinghaiqiao.github.io/wxArchive )
 
 ## 如何浏览
 

@@ -6,6 +6,6 @@
 5. `rm imglist voicelist`
 6. 运行[1main.pl](1main.pl)
 7. 打开[dingWX.html](../dingWX.html)，检查是否能顺利访问备份文件，重点关注标题里有特殊字符的推送
-8. `cd [media](media/ )` 运行[getimg.sh](getimg.sh)下载图片
-9. 运行[getvoice.sh](getvoice.sh)下载音频
+8. `cd media` 运行[getimg.sh](media/getimg.sh)下载图片
+9. 运行[getvoice.sh](media/getvoice.sh)下载音频
 10. 将备份文件复制到[dhqWX](../dhqWX/ )
