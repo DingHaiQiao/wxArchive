@@ -75,17 +75,20 @@ divs.forEach(function eachDiv(div) {
         let localA=document.createElement('a')
         localA.className='local'
         localA.innerText='#'
+        let localA2=localA.cloneNode(true)
         if (thisa.querySelectorAll('img').length>0) {//纯图片推送
             localA.href='dhqWX/'+em.innerText+'/'+'wx.jpeg'
+            localA.classList.add("img")
             wrapper.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
             wrapper.insertBefore(localA,thisa.nextSibling)//插入jpeg网址
         } else {
             thisa.innerText=thisa.firstElementChild.innerText.replace(r2,'')
             let newTitle=encodeURIComponent(thisa.innerText.replace(r,'_'))
             localA.href='dhqWX/'+em.innerText+'/'+newTitle+'.png'
+            localA.classList.add("img")
             wrapper.insertBefore(br.cloneNode(true),thisa.nextSibling)//插入换行
             wrapper.insertBefore(localA,thisa.nextSibling)//插入截图png网址
-            let localA2=localA.cloneNode(true)
+            localA2.classList.add("html")
             localA2.href='dhqWX/'+em.innerText+'/'+newTitle+'.html'
             wrapper.insertBefore(localA2,thisa.nextSibling)//插入html网址
         }
