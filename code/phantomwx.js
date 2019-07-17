@@ -1,4 +1,4 @@
-//usage: phantomjs.exe wx.js "网址"
+//usage: phantomjs.exe phantomwx.js "网址"
 /*global require phantom:true*/
 var page = require('webpage').create(),
     system = require('system'),
@@ -41,17 +41,25 @@ page.open(address, function() {
             }
         }
         
-        var links=document.querySelectorAll('link')
+        var scripts = document.querySelectorAll('script') //remove <script>
+        for (var i = 0; i < scripts.length; i++) {
+            scripts[i].remove()
+        }
+        
+        var links=document.querySelectorAll('link') //将link链接变完整，加上https:
         for (var index = 0; index < links.length; index++) {
             if (/^\/\//.test(links[index].getAttribute('href'))) {
                 links[index].setAttribute('href','https:'+links[index].getAttribute('href'))
             } 
         }
-
-        var scripts = document.querySelectorAll('script') //remove <script>
-        for (var i = 0; i < scripts.length; i++) {
-            scripts[i].remove()
+        
+        document.querySelector("head > title").innerText=document.querySelector("#activity-name").innerText//title恢复为文章标题
+        
+        var divRemoves=document.querySelectorAll("#js_article ~ div")//remove useless div
+        for (var i = 0; i < divRemoves.length; i++) {
+            divRemoves[i].remove()
         }
+        document.querySelector("#js_article > div.rich_media_inner > div.rich_media_area_extra").remove()
 
         var videos = document.querySelectorAll('.video_iframe') //恢复被延迟加载的视频
         for (var i = 0; i < videos.length; i++) {
