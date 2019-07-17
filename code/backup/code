@@ -1,0 +1,3 @@
+find . -name "*.html" | xargs -t  -n2 -I '{}' sed -i '/!DOCTYPE/a\<meta name="referrer" content="no-referrer">'  "{}"
+
+find . -name "*.html" | xargs -t  -n2 -I '{}' sed -i 's|/mp/qrcode|https://mp.weixin.qq.com/mp/qrcode|'  "{}"
