@@ -2,7 +2,8 @@
   "version": 2,
   "builds": [
     { "src": "dhqWX/**", "use": "@now/static" },
-    { "src": "dingWX.html", "use": "@now/static" }
+    { "src": "dingWX.html", "use": "@now/static" },
+    {"src":"sitemapNow.txt","use":"@now/static" }
   ],
   "routes": [
     { "src": "/", "dest": "/dingWX.html" }
